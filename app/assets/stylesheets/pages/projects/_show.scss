@@ -3105,3 +3105,9 @@ turbo-frame#project_hero {
     border-color: var(--color-space-text);
   }
 }
+
+.project-show__latest-ship-stats-note {
+  color: var(--color-space-text-muted, #9b99b6);
+  font-size: 0.875rem;
+  margin-left: 0.35rem;
+}

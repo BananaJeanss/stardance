@@ -111,7 +111,9 @@ class UsersController < ApplicationController
     build_posts = -> {
       @pagy, posts = pagy(:offset, scope, limit: ACTIVITY_LIMIT)
       preload_timeline_postables(posts)
-      posts.select { |post| !post.repost? || post.visible_repost_original_for?(current_user) }
+      posts = posts.select { |post| !post.repost? || post.visible_repost_original_for?(current_user) }
+      @reposted_post_ids = reposted_post_ids_for(posts)
+      posts
     }
 
     # Post::Devlog has its own default_scope (SoftDeletable), which the

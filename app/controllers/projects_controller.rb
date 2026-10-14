@@ -127,6 +127,8 @@ class ProjectsController < ApplicationController
         post.postable.certification_status.in?(Post::ShipEvent::HIDDEN_STATUSES)
     end
 
+    @reposted_post_ids = reposted_post_ids_for(@posts)
+
     @queue_mismatch_review = visible_queue_mismatch
 
     # Review visibility is checked separately from public Post rows.

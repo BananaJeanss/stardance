@@ -997,17 +997,22 @@ Rails.application.routes.draw do
       get "devlogs/:devlog_id/commits", to: "devlog_commits#index", as: "devlog_commits"
 
       resource :ysws_shortcuts, only: [ :update ], controller: "ysws_shortcuts"
-      get "review", to: "ysws#index", as: "ysws_reviews"
       get "review/dashboard", to: "ysws/dashboard#show", as: "ysws_dashboard"
-      get "review/:id", to: "ysws#show", as: "ysws_review"
-      get "review/:id/commits", to: "ysws#commits", as: "ysws_commits"
-      get "review/:id/double_dip", to: "ysws#double_dip", as: "ysws_double_dip"
-      post "review/:id/report_fraud", to: "ysws#report_fraud", as: "ysws_report_fraud"
-      delete "review/:id/claim", to: "ysws#unclaim", as: "ysws_claim"
-      post "review/:id/complete", to: "ysws#complete", as: "complete_ysws_review"
-      post "review/:id/undo", to: "ysws#undo", as: "undo_ysws_review"
-      post "review/:id/return_to_ship_cert", to: "ysws#return_to_ship_cert", as: "return_to_ship_cert_ysws_review"
-      post "review/:id/resync", to: "ysws#resync", as: "resync_ysws_review"
+      resources :ysws_reviews, path: "review", controller: "ysws", only: [ :index, :show ] do
+        post :next, on: :collection
+
+        member do
+          get :commits
+          get :double_dip
+          post :report_fraud
+          delete :claim, action: :unclaim
+          post :complete
+          post :undo
+          post :skip
+          post :return_to_ship_cert
+          post :resync
+        end
+      end
 
       # Admin payout management
       resources :payouts, only: [ :index, :show ] do

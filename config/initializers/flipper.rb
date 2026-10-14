@@ -51,6 +51,7 @@ Rails.application.config.after_initialize do
         mac_analysis
         sticky_streaks
         public_api_2026-08-28
+        ysws_review_flow
         virality_bonus
         ysws_review_shortcuts
         bukux2

@@ -1069,6 +1069,8 @@ class Project < ApplicationRecord
     curseforge.com
     makerworld.com
     streamlit.app
+    figma.com
+    nexusmods.com
   ].freeze
 
   # Public so ProjectUrlProbeService and the controller can probe URLs.

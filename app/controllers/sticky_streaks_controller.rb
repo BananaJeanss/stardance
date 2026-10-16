@@ -12,10 +12,6 @@ class StickyStreaksController < ApplicationController
   def create
     authorize :sticky_streak, :start?
 
-    unless current_user.sticky_streaks_enabled?
-      return redirect_back fallback_location: root_path, alert: "Sticky Streaks aren't available yet."
-    end
-
     unless current_user.hackatime_identity.present?
       return redirect_back fallback_location: root_path, alert: "Connect Hackatime before starting your Sticky Streak."
     end

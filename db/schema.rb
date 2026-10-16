@@ -855,6 +855,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_135606) do
     t.datetime "created_at", null: false
     t.datetime "deleted_at"
     t.integer "duration_seconds"
+    t.text "hackatime_project_names_snapshot", array: true
     t.text "hackatime_projects_key_snapshot"
     t.datetime "hackatime_pulled_at"
     t.integer "likes_count", default: 0, null: false

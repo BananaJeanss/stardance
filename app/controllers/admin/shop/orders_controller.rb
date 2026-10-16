@@ -569,6 +569,7 @@ class Admin::Shop::OrdersController < Admin::ApplicationController
     end
 
     old_state = @order.aasm_state
+    @order.tracking_number = params[:tracking_number].to_s.strip if params[:tracking_number].present?
 
     if @order.mark_fulfilled(params[:external_ref].presence, params[:fulfillment_cost].presence, current_user.display_name) && @order.save
       ::PaperTrail::Version.create!(
@@ -607,6 +608,16 @@ class Admin::Shop::OrdersController < Admin::ApplicationController
       redirect_to admin_shop_order_path(@order), notice: "Internal notes updated"
     else
       redirect_to admin_shop_order_path(@order), alert: "Failed to update notes"
+    end
+  end
+
+  def update_tracking
+    authorize @order, :update_tracking?
+
+    if @order.update_tracking(params[:tracking_number], by: current_user)
+      redirect_to admin_shop_order_path(@order), notice: @order.tracking_number ? "Tracking updated" : "Tracking cleared"
+    else
+      redirect_to admin_shop_order_path(@order), alert: "Failed to update tracking: #{@order.errors.full_messages.join(', ')}"
     end
   end
 

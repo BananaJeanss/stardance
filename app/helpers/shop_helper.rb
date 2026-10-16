@@ -81,6 +81,16 @@ module ShopHelper
     shop_item.source_region if ITEMS_WITH_CONFIGURABLE_SOURCE_REGION.include?(shop_item.type)
   end
 
+  # Renders a tracking code as a link to where it can be tracked, or as plain
+  # text when it has nowhere to link (see TrackingLink.for's `universal`).
+  def tracking_link_tag(code, universal: true)
+    link = TrackingLink.for(code, universal: universal)
+    return if link.nil?
+    return link.label if link.url.nil?
+
+    link_to link.label, link.url, target: "_blank", rel: "noopener noreferrer"
+  end
+
   private
 
   def region_matches_country?(region_code, country_name)

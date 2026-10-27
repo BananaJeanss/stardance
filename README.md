@@ -27,7 +27,7 @@ Follow the **[CONTRIBUTING.md](CONTRIBUTING.md)** guide to get started with deve
 
 We deploy to Coolify using Docker. Both the web and worker services use the same `Dockerfile`.
 
-### Web service
+### Web Service
 
 Just run it: the entrypoint should trigger
 
@@ -35,7 +35,7 @@ Just run it: the entrypoint should trigger
 ./bin/thrust ./bin/rails server
 ```
 
-### Worker service
+### Worker Service
 
 In the worker resource's **General** tab, add this to **Custom Docker Options**:
 
